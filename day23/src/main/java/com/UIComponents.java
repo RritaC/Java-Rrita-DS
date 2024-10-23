@@ -14,7 +14,7 @@ public class UIComponents {
     static CheckBox virtualCheckBox = new CheckBox("Virtual Checkbox");
     static CheckBox downloadableCheckBox = new CheckBox("Downloadable Checkbox");
     static ListView<String> attributeListView = new ListView<>();
-    static Button saveButton = new Button();
+    static Button saveButton = new Button("Save");
 
     public static void addComponents(GridPane grid) {
 
@@ -34,6 +34,11 @@ public class UIComponents {
         attributeListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         grid.add(attributeListView, 1, 4);
 
+        // SaveButton Setup
+        grid.add(saveButton, 1, 5);
+
+        // Button on click actions
+        saveButton.setOnAction(e -> PrintHandler.printOutValues());
     }
 
 }
