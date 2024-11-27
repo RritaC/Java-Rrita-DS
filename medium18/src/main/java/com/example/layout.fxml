@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.GridPane?>
+
+<GridPane fx:controller="com.example.MyController"
+          xmlns:fx="http://javafx.com/fxml"
+          alignment="CENTER" hgap="10" vgap="10">
+    <TextField fx:id="textField" GridPane.rowIndex="0" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+    <Button text="Submit" onAction="#onButtonClick" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+    <Label fx:id="label" text="Enter something..." GridPane.rowIndex="2" GridPane.columnIndex="0" GridPane.columnSpan="2"/>
+</GridPane>
