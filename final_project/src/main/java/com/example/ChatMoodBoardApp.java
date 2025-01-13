@@ -22,8 +22,7 @@ public class ChatMoodBoardApp extends Application {
     private UserProfile loggedInUser;
     private boolean groupMembersDisplayed = false;
 
-    private static final Set<String> POSITIVE_WORDS = Set.of("happy", "joy", "love", "excellent", "great", "amazing",
-            "wonderful");
+    private static final Set<String> POSITIVE_WORDS = Set.of("happy", "joy", "love", "excellent", "great", "amazing","wonderful");
     private static final Set<String> NEGATIVE_WORDS = Set.of("sad", "angry", "hate", "bad", "terrible", "horrible");
     private static final Set<String> EXCITED_WORDS = Set.of("excited", "thrilled", "awesome", "fantastic", "ecstatic");
     private static final Set<String> CALM_WORDS = Set.of("calm", "relaxed", "peaceful", "content", "serene");
@@ -33,7 +32,7 @@ public class ChatMoodBoardApp extends Application {
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Sign Up to Chat Application");
 
-        // Show Sign-Up Screen
+        
         Scene signUpScene = createSignUpScene(primaryStage);
         primaryStage.setScene(signUpScene);
         primaryStage.show();
@@ -80,7 +79,7 @@ public class ChatMoodBoardApp extends Application {
             if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
                 showAlert("Invalid Input", "Please fill in all required fields.");
             } else {
-                // Save user profile
+                
                 userProfiles.put(username, new UserProfile(username, password, email, bio, profilePicUrl));
                 showAlert("Success", "Account created successfully! Please log in.");
                 primaryStage.setScene(createLoginScene(primaryStage));
@@ -131,21 +130,21 @@ public class ChatMoodBoardApp extends Application {
     private Scene createChatScene(Stage primaryStage) {
         BorderPane chatWindow = new BorderPane();
 
-        // Define chatList
+        
         ListView<HBox> chatList = new ListView<>();
         chatList.setStyle("-fx-background-color: #e8f5e9; -fx-border-radius: 10;");
         chatList.setId("chatList");
 
-        // Left Panel - User List and Chat Area
+        
         VBox chatArea = createChatArea(chatWindow, chatList);
 
-        // Right Panel - Mood Board
+       
         VBox moodBoard = createMoodBoard();
 
         chatWindow.setLeft(chatArea);
         chatWindow.setRight(moodBoard);
 
-        // Fix the call to createInputBox by passing the correct variables
+        
         chatWindow.setBottom(createInputBox(loggedInUser.getUsername(), chatList, moodBoard));
 
         return new Scene(chatWindow, 950, 600);
@@ -158,12 +157,11 @@ public class ChatMoodBoardApp extends Application {
 
         HBox userAndChat = new HBox(10);
 
-        // User List
         ListView<HBox> userList = new ListView<>();
         userList.setPrefWidth(250);
         userList.setStyle("-fx-background-color: #ffffff; -fx-border-color: #81c784; -fx-border-radius: 10;");
 
-        // Add Users
+        
         addUser(userList, "Group Chat", chatList, chatWindow, "Alice, Bob, Charlie");
         addUser(userList, "Alice", chatList, chatWindow, "");
         addUser(userList, "Bob", chatList, chatWindow, "");
@@ -375,7 +373,7 @@ public class ChatMoodBoardApp extends Application {
         launch(args);
     }
 
-    // Inner class for user profile
+    
     private static class UserProfile {
         private final String username;
         private final String password;
