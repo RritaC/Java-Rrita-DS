@@ -22,17 +22,36 @@ public class ChatMoodBoardApp extends Application {
     private UserProfile loggedInUser;
     private boolean groupMembersDisplayed = false;
 
-    private static final Set<String> POSITIVE_WORDS = Set.of("happy", "joy", "love", "excellent", "great", "amazing","wonderful");
-    private static final Set<String> NEGATIVE_WORDS = Set.of("sad", "angry", "hate", "bad", "terrible", "horrible");
-    private static final Set<String> EXCITED_WORDS = Set.of("excited", "thrilled", "awesome", "fantastic", "ecstatic");
-    private static final Set<String> CALM_WORDS = Set.of("calm", "relaxed", "peaceful", "content", "serene");
-    private static final Set<String> ANGRY_WORDS = Set.of("furious", "irritated", "mad", "upset");
+    private static final Set<String> POSITIVE_WORDS = Set.of(
+            "happy", "joy", "love", "great", "amazing", "wonderful", "yay",
+            "awesome", "cool", "good", "nice", "fun", "sweet", "smile",
+            "lol", "haha", "hehe", "xoxo", "gr8", "lit", "vibe", "sunny");
+
+    private static final Set<String> NEGATIVE_WORDS = Set.of(
+            "sad", "angry", "hate", "bad", "terrible", "horrible", "ugh",
+            "cry", "tears", "depressed", "bored", "meh", "fml", "sucks",
+            "lame", "ouch", "nope", "broken", "fail", "low", "dark");
+
+    private static final Set<String> EXCITED_WORDS = Set.of(
+            "excited", "thrilled", "yay", "omg", "whoa", "wow", "hyped",
+            "pumped", "stoked", "yass", "woohoo", "ecstatic", "epic",
+            "lit", "dope", "so good", "fire", "on top", "winning", "love it");
+
+    private static final Set<String> CALM_WORDS = Set.of(
+            "calm", "chill", "relaxed", "peace", "ok", "fine", "cool",
+            "good vibes", "smooth", "easy", "zen", "balanced", "still",
+            "quiet", "cozy", "ahh", "breathe", "relax", "no stress", "all good");
+
+    private static final Set<String> ANGRY_WORDS = Set.of(
+            "furious", "mad", "upset", "angry", "pissed", "wtf", "damn",
+            "ugh", "grr", "annoyed", "irritated", "frustrated", "fuming",
+            "rage", "snapped", "triggered", "over it", "hate it", "smh",
+            "kidding me", "done");
 
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Sign Up to Chat Application");
 
-        
         Scene signUpScene = createSignUpScene(primaryStage);
         primaryStage.setScene(signUpScene);
         primaryStage.show();
@@ -79,9 +98,14 @@ public class ChatMoodBoardApp extends Application {
             if (username.isEmpty() || password.isEmpty() || email.isEmpty()) {
                 showAlert("Invalid Input", "Please fill in all required fields.");
             } else {
-                
+
                 userProfiles.put(username, new UserProfile(username, password, email, bio, profilePicUrl));
-                showAlert("Success", "Account created successfully! Please log in.");
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success");
+                alert.setHeaderText(null);
+                alert.setContentText("Account created successfully! Please log in.");
+                alert.getDialogPane().setStyle(FONT_STYLE); // Apply FONT_STYLE here
+                alert.showAndWait();
                 primaryStage.setScene(createLoginScene(primaryStage));
             }
         });
@@ -130,21 +154,17 @@ public class ChatMoodBoardApp extends Application {
     private Scene createChatScene(Stage primaryStage) {
         BorderPane chatWindow = new BorderPane();
 
-        
         ListView<HBox> chatList = new ListView<>();
         chatList.setStyle("-fx-background-color: #e8f5e9; -fx-border-radius: 10;");
         chatList.setId("chatList");
 
-        
         VBox chatArea = createChatArea(chatWindow, chatList);
 
-       
         VBox moodBoard = createMoodBoard();
 
         chatWindow.setLeft(chatArea);
         chatWindow.setRight(moodBoard);
 
-        
         chatWindow.setBottom(createInputBox(loggedInUser.getUsername(), chatList, moodBoard));
 
         return new Scene(chatWindow, 950, 600);
@@ -161,7 +181,6 @@ public class ChatMoodBoardApp extends Application {
         userList.setPrefWidth(250);
         userList.setStyle("-fx-background-color: #ffffff; -fx-border-color: #81c784; -fx-border-radius: 10;");
 
-        
         addUser(userList, "Group Chat", chatList, chatWindow, "Alice, Bob, Charlie");
         addUser(userList, "Alice", chatList, chatWindow, "");
         addUser(userList, "Bob", chatList, chatWindow, "");
@@ -180,7 +199,27 @@ public class ChatMoodBoardApp extends Application {
         chatHistories.put(username, userChat);
 
         HBox userItem = new HBox(10);
-        ImageView profileIcon = new ImageView(new Image("https://via.placeholder.com/50"));
+        ImageView profileIcon;
+
+        // Set the profile picture based on the username
+        switch (username) {
+            case "Alice":
+                profileIcon = new ImageView(
+                        new Image("https://cdn.pixabay.com/photo/2022/04/06/11/30/girl-7115394_1280.jpg"));
+                break;
+            case "Bob":
+                profileIcon = new ImageView(
+                        new Image("https://menshaircuts.com/wp-content/uploads/2024/08/tp-boys-haircuts.jpg"));
+                break;
+            case "Charlie":
+                profileIcon = new ImageView(new Image(
+                        "https://www.shutterstock.com/image-photo/photo-adorable-young-happy-boy-600nw-120165631.jpg"));
+                break;
+            default:
+                profileIcon = new ImageView(new Image("https://via.placeholder.com/50")); // Default placeholder
+                break;
+        }
+
         profileIcon.setFitWidth(50);
         profileIcon.setFitHeight(50);
 
@@ -373,7 +412,6 @@ public class ChatMoodBoardApp extends Application {
         launch(args);
     }
 
-    
     private static class UserProfile {
         private final String username;
         private final String password;

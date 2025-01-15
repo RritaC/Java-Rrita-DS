@@ -16,19 +16,6 @@
             <version>13</version>
         </dependency>
         <dependencies>
-    <!-- Stanford CoreNLP -->
-    <dependency>
-        <groupId>edu.stanford.nlp</groupId>
-        <artifactId>stanford-corenlp</artifactId>
-        <version>4.5.3</version>
-    </dependency>
-    <!-- Additional models for English -->
-    <dependency>
-        <groupId>edu.stanford.nlp</groupId>
-        <artifactId>stanford-corenlp</artifactId>
-        <classifier>models</classifier>
-        <version>4.5.3</version>
-    </dependency>
 </dependencies>
 
         <dependency>
